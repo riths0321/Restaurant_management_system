@@ -51,7 +51,12 @@ public class Admin {
         this.password = password;
     }
 
-    public Admin(int adminId, String username, String password, String email){}
+    public Admin(int adminId, String username, String password, String email) {
+        this.adminId = adminId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     @Override
     public String toString() {

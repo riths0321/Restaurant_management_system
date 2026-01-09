@@ -21,6 +21,10 @@ public class MenuItem
         return itemName;
     }
 
+    public String getName() {
+        return itemName;
+    }
+
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }

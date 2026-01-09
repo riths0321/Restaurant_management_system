@@ -110,9 +110,11 @@ public class CustomerManager {
         String email = sc.nextLine();
         System.out.print("Enter customer password: ");
         String password = sc.nextLine();
+        System.out.print("Enter customer phone number: ");
+        String phoneNumber = sc.nextLine();
 
         try {
-            Customer customer = new Customer(customerId, name, email, password);
+            Customer customer = new Customer(customerId, name, email, password, phoneNumber);
             customerService.Customer(customer);
             System.out.println("Customer created successfully.\n");
         } catch (InvalidLoginException | CustomerException e) {
@@ -131,9 +133,11 @@ public class CustomerManager {
         String email = sc.nextLine();
         System.out.print("Enter new customer password: ");
         String password = sc.nextLine();
+        System.out.print("Enter new customer phone number: ");
+        String phoneNumber = sc.nextLine();
 
         try {
-            Customer customer = new Customer(customerId, name, email, password);
+            Customer customer = new Customer(customerId, name, email, password, phoneNumber);
             customerService.updateCustomerDetails(customer);
             System.out.println("Customer updated successfully.\n");
         } catch (CustomerException e) {

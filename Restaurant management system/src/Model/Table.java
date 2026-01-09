@@ -14,7 +14,11 @@ public class Table {
             this.status = status;
         }
 
-        public Table(int id, int capacity, String status) {}
+        public Table(int id, int capacity, String status) {
+            this.tableId = id;
+            this.capacity = capacity;
+            this.status = status;
+        }
 
         // Getters and Setters
         public int getTableId() {

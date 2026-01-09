@@ -83,7 +83,7 @@ public class OrderDaoImpl implements OrderDao
         try {
             ppst = connection.prepareStatement(sql);
             ppst.setInt(1, order.getCustomerId());
-            ppst.setDate(2, new java.sql.Date.valueof(order.getOrderDate()));
+            ppst.setDate(2, java.sql.Date.valueOf(order.getOrderDate()));
             ppst.setDouble(3, order.getTotalAmount());
             ppst.setString(4, order.getStatus());
             int rowsAffected = ppst.executeUpdate();
@@ -102,7 +102,7 @@ public class OrderDaoImpl implements OrderDao
         try {
             ppst = connection.prepareStatement(sql);
             ppst.setInt(1, order.getCustomerId());
-            ppst.setDate(2,  new java.sql.Date.valueof(order.getOrderDate()));
+            ppst.setDate(2, java.sql.Date.valueOf(order.getOrderDate()));
             ppst.setDouble(3, order.getTotalAmount());
             ppst.setString(4, order.getStatus());
             ppst.setInt(5, order.getOrderId());

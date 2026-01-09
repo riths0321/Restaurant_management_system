@@ -21,7 +21,13 @@ public class Order {
             this.status = status;
         }
 
-        public Order(int orderId, int customerId, LocalDate orderDate, double totalAmount, String status) {}
+        public Order(int orderId, int customerId, LocalDate orderDate, double totalAmount, String status) {
+            this.orderId = orderId;
+            this.customerId = customerId;
+            this.orderDate = orderDate;
+            this.totalAmount = totalAmount;
+            this.status = status;
+        }
 
     public Order(int orderId, int customerId, Date orderDate, double totalAmount, String status) {
     }

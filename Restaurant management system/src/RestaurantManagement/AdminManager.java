@@ -23,10 +23,10 @@ public class AdminManager {
     public AdminManager(Scanner sc, AdminService adminService) {
         this.sc = sc;
         this.adminService = adminService;
-        this.menuItemService = menuItemService;
-        this.tableService = tableService;
-        this.orderService = orderService;
-        this.customerService = customerService;
+        this.menuItemService = new MenuItemService();
+        this.tableService = new TableService();
+        this.orderService = new OrderService();
+        this.customerService = new CustomerService();
     }
 
     // Handle admin login
@@ -200,17 +200,222 @@ public class AdminManager {
 
     // Methods to manage tables
     private void manageTables() {
-        // Implement table management methods here similar to menu item management
+        boolean keepRunning = true;
+        while (keepRunning) {
+            System.out.print("Table Management:\n" +
+                    "1. Add Table\n" +
+                    "2. Update Table\n" +
+                    "3. Delete Table\n" +
+                    "4. View All Tables\n" +
+                    "5. View Available Tables\n" +
+                    "6. Go Back\n" +
+                    "Enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
+                case 1 -> addTable();
+                case 2 -> updateTable();
+                case 3 -> deleteTable();
+                case 4 -> viewAllTables();
+                case 5 -> viewAvailableTables();
+                case 6 -> keepRunning = false;
+                default -> System.out.println("Invalid choice. Please try again!\n");
+            }
+        }
+    }
+
+    private void addTable() {
+        System.out.print("Enter table ID: ");
+        int tableId = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter table capacity: ");
+        int capacity = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter table status: ");
+        String status = sc.nextLine();
+
+        try {
+            Model.Table table = new Model.Table(tableId, capacity, status);
+            tableService.creatTable(table);
+            System.out.println("Table added successfully.\n");
+        } catch (Exception e) {
+            System.out.println("Error adding table: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void updateTable() {
+        System.out.print("Enter table ID to update: ");
+        int tableId = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter new capacity: ");
+        int capacity = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter new status: ");
+        String status = sc.nextLine();
+
+        try {
+            Model.Table table = new Model.Table(tableId, capacity, status);
+            tableService.updateTable(table);
+            System.out.println("Table updated successfully.\n");
+        } catch (Exception e) {
+            System.out.println("Error updating table: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void deleteTable() {
+        System.out.print("Enter table ID to delete: ");
+        int tableId = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            tableService.deleteTable(tableId);
+            System.out.println("Table deleted successfully.\n");
+        } catch (Exception e) {
+            System.out.println("Error deleting table: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void viewAllTables() {
+        try {
+            tableService.getAllTables().forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Error retrieving tables: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void viewAvailableTables() {
+        try {
+            tableService.getAvailableTables().forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Error retrieving available tables: " + e.getMessage() + "\n");
+        }
     }
 
     // Methods to manage orders
     private void manageOrders() {
-        // Implement order management methods here similar to menu item management
+        boolean keepRunning = true;
+        while (keepRunning) {
+            System.out.print("Order Management:\n" +
+                    "1. View All Orders\n" +
+                    "2. View Order by ID\n" +
+                    "3. Update Order Status\n" +
+                    "4. Delete Order\n" +
+                    "5. Go Back\n" +
+                    "Enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
+                case 1 -> viewAllOrders();
+                case 2 -> viewOrderById();
+                case 3 -> updateOrderStatus();
+                case 4 -> deleteOrder();
+                case 5 -> keepRunning = false;
+                default -> System.out.println("Invalid choice. Please try again!\n");
+            }
+        }
+    }
+
+    private void viewAllOrders() {
+        try {
+            orderService.getAllOrders().forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Error retrieving orders: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void viewOrderById() {
+        System.out.print("Enter order ID: ");
+        int orderId = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            System.out.println(orderService.getOrderById(orderId));
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void updateOrderStatus() {
+        System.out.print("Enter order ID: ");
+        int orderId = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter new status: ");
+        String status = sc.nextLine();
+
+        try {
+            orderService.updateOrderStatus(orderId, status);
+            System.out.println("Order status updated successfully.\n");
+        } catch (Exception e) {
+            System.out.println("Error updating order: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void deleteOrder() {
+        System.out.print("Enter order ID to delete: ");
+        int orderId = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            orderService.deleteOrder(orderId);
+            System.out.println("Order deleted successfully.\n");
+        } catch (Exception e) {
+            System.out.println("Error deleting order: " + e.getMessage() + "\n");
+        }
     }
 
     // Methods to manage customers
     private void manageCustomers() {
-        // Implement customer management methods here similar to menu item management
+        boolean keepRunning = true;
+        while (keepRunning) {
+            System.out.print("Customer Management:\n" +
+                    "1. View All Customers\n" +
+                    "2. View Customer by ID\n" +
+                    "3. Delete Customer\n" +
+                    "4. Go Back\n" +
+                    "Enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
+                case 1 -> viewAllCustomers();
+                case 2 -> viewCustomerById();
+                case 3 -> deleteCustomer();
+                case 4 -> keepRunning = false;
+                default -> System.out.println("Invalid choice. Please try again!\n");
+            }
+        }
+    }
+
+    private void viewAllCustomers() {
+        try {
+            customerService.getAllCustomers().forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Error retrieving customers: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void viewCustomerById() {
+        System.out.print("Enter customer ID: ");
+        int customerId = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            System.out.println(customerService.getCustomerById(customerId));
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void deleteCustomer() {
+        System.out.print("Enter customer ID to delete: ");
+        int customerId = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            customerService.deleteCustomer(customerId);
+            System.out.println("Customer deleted successfully.\n");
+        } catch (Exception e) {
+            System.out.println("Error deleting customer: " + e.getMessage() + "\n");
+        }
     }
 }
 

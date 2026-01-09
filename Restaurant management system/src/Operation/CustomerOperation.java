@@ -102,7 +102,7 @@ public class CustomerOperation {
         String password = sc.nextLine();
 
         try {
-            Customer customer = new Customer(id, name, email, phoneNumber, password);
+            Customer customer = new Customer(id, name, email, password, phoneNumber);
             customerService.Customer(customer);
             System.out.println("Account created successfully.");
         } catch (Exception e) {
